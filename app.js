@@ -73,6 +73,7 @@ const convertLikeDbObjectToResponseObject = (dbObject) => {
   };
 };
 
+//API 1 register
 app.post("/register/", async (request, response) => {
   const { username, password, name, gender } = request.body;
   // check if user already exists with the same username
@@ -98,6 +99,7 @@ app.post("/register/", async (request, response) => {
   }
 });
 
+//API 2 login
 app.post("/login/", async (request, response) => {
   const { username, password } = request.body;
   // check if the username exists
@@ -142,6 +144,7 @@ const authenticateUser = (request, response, next) => {
   }
 };
 
+//API 3 user-tweets-feed
 app.get("/user/tweets/feed/", authenticateUser, async (request, response) => {
   const { username } = request;
   const selectUserQuery = `
@@ -176,6 +179,7 @@ app.get("/user/tweets/feed/", authenticateUser, async (request, response) => {
   response.send(tweets);
 });
 
+//API 4 user-following
 app.get("/user/following/", authenticateUser, async (request, response) => {
   const { username } = request;
   const selectUserQuery = `
@@ -205,6 +209,7 @@ app.get("/user/following/", authenticateUser, async (request, response) => {
   response.send(following);
 });
 
+//API 5 user-followers
 app.get("/user/followers/", authenticateUser, async (request, response) => {
   const { username } = request;
   const selectUserQuery = `
@@ -233,6 +238,7 @@ app.get("/user/followers/", authenticateUser, async (request, response) => {
   response.send(followers);
 });
 
+//API 6 get tweet id
 app.get("/tweets/:tweetId/", authenticateUser, async (request, response) => {
   const { tweetId } = request.params;
   const { username } = request;
@@ -277,6 +283,7 @@ app.get("/tweets/:tweetId/", authenticateUser, async (request, response) => {
   }
 });
 
+//API 7 tweet-likes
 app.get(
   "/tweets/:tweetId/likes/",
   authenticateUser,
@@ -328,6 +335,7 @@ app.get(
   }
 );
 
+//API 8 tweet-replies
 app.get(
   "/tweets/:tweetId/replies/",
   authenticateUser,
@@ -370,6 +378,7 @@ app.get(
   }
 );
 
+//API 9 get-user-tweets
 app.get("/user/tweets/", authenticateUser, async (request, response) => {
   const { username } = request;
   const selectUserQuery = `
@@ -416,6 +425,7 @@ app.get("/user/tweets/", authenticateUser, async (request, response) => {
   );
 });
 
+//API 10 POST-user-tweet
 app.post("/user/tweets/", authenticateUser, async (request, response) => {
   const { username } = request;
   const selectUserQuery = `
@@ -434,6 +444,7 @@ app.post("/user/tweets/", authenticateUser, async (request, response) => {
   response.send("Created a Tweet");
 });
 
+//API 11 DELETE-TWEET
 app.delete("/tweets/:tweetId/", authenticateUser, async (request, response) => {
   const { tweetId } = request.params;
   const { username } = request;
